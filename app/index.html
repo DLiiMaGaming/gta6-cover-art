@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vice Coast Cover Lab — GTA-style cover art maker</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">VC</span>
+    <span class="brand-name">VICE COAST <em>Cover Lab</em></span>
+  </div>
+  <p class="tagline">Turn any photo into GTA-style cover art. Runs fully offline — your photos never leave this machine.</p>
+</header>
+
+<main class="workbench">
+  <section class="stage-wrap" aria-label="Cover preview">
+    <div class="stage-toolbar">
+      <span id="stageHint">Drop photos or pick samples to begin</span>
+      <span id="stageSize" class="stage-size">1080 × 1080</span>
+    </div>
+    <div class="stage-frame">
+      <canvas id="stage" width="900" height="900"></canvas>
+      <div id="stageEmpty" class="stage-empty">
+        <p class="empty-big">Your cover lives here</p>
+        <p>Add a photo, pick a layout, write a caption — then export a PNG.</p>
+        <button id="emptySamples" type="button" class="btn btn-warm">Load the two sample photos</button>
+      </div>
+    </div>
+    <p class="stage-tip">Click a panel to select it · drag inside it to move the photo · scroll to zoom · sliders below fine-tune it.</p>
+  </section>
+
+  <aside class="controls" aria-label="Cover controls">
+    <section class="panel" id="photosPanel">
+      <h2>1 · Photos</h2>
+      <div class="row">
+        <label class="btn btn-warm file-btn">Add photos from your machine
+          <input id="fileInput" type="file" accept="image/*" multiple hidden>
+        </label>
+        <button id="sampleBtn" type="button" class="btn">Use sample photos</button>
+      </div>
+      <div id="tray" class="tray" aria-label="Your photos"></div>
+      <p class="hint">Click a photo in the tray, then click a panel to place it there. <button id="fillAllBtn" type="button" class="link-btn">Fill every panel with the selected photo</button></p>
+    </section>
+
+    <section class="panel">
+      <h2>2 · Layout</h2>
+      <div id="layoutRow" class="chip-row" role="group" aria-label="Panel layout"></div>
+      <h2>3 · Colour grade</h2>
+      <div id="gradeRow" class="chip-row" role="group" aria-label="Colour grade"></div>
+      <label class="check"><input id="grainToggle" type="checkbox" checked> Film grain</label>
+      <label class="check"><input id="frameToggle" type="checkbox" checked> White poster frame</label>
+    </section>
+
+    <section class="panel">
+      <h2>4 · Caption</h2>
+      <label class="field">Title
+        <input id="titleInput" type="text" value="VICE COAST" maxlength="24" autocomplete="off">
+      </label>
+      <label class="field">Subtitle — neon script
+        <input id="subtitleInput" type="text" value="Sunset Heist" maxlength="32" autocomplete="off">
+      </label>
+      <label class="field">Badge — small caps strip
+        <input id="badgeInput" type="text" value="LEONIDA • EST. 2026" maxlength="32" autocomplete="off">
+      </label>
+    </section>
+
+    <section class="panel">
+      <h2>5 · Selected panel</h2>
+      <p id="panelLabel" class="hint">No panel selected yet — click a panel on the cover.</p>
+      <label class="field">Zoom
+        <input id="zoomSlider" type="range" min="1" max="3" step="0.01" value="1" disabled>
+      </label>
+      <div class="row">
+        <button id="centerBtn" type="button" class="btn" disabled>Centre photo</button>
+        <button id="clearPanelBtn" type="button" class="btn" disabled>Clear panel</button>
+      </div>
+    </section>
+
+    <section class="panel export-panel">
+      <h2>6 · Export</h2>
+      <div id="sizeRow" class="chip-row" role="group" aria-label="Export size"></div>
+      <button id="exportBtn" type="button" class="btn btn-big btn-warm">Export PNG</button>
+      <button id="exportAllBtn" type="button" class="btn">Export all three sizes</button>
+      <p id="exportStatus" class="hint" role="status"></p>
+    </section>
+
+    <p class="fineprint">Original design. No Rockstar Games logo, artwork, character or font. Lettering set in Anton &amp; Pacifico, shipped under the SIL Open Font License (see app/fonts/OFL.txt).</p>
+  </aside>
+</main>
+
+<div id="shotErrors" hidden></div>
+<script type="module" src="src/editor.js"></script>
+</body>
+</html>
